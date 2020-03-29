@@ -1,28 +1,24 @@
-# build image: docker build -t ngohaibac/ubuntu14.04 .
-FROM ubuntu:14.04
+FROM archlinux:latest
+ARG UID=1000
+ARG GID=1000
+ARG UNAME=bacnh
 
-# Update packages
-RUN apt-get update && apt-get install -y \
-	git \
-	g++ \
-	make \
-	libncurses5-dev \
-	subversion \
-	libssl-dev \
-	gawk \ 
-	libxml-parser-perl \
-	unzip \
-	wget python xz-utils \
-	xsltproc \
-	intltool \
-	tree \
-	quilt \
-# add user tux
-	&& useradd -ms /bin/bash tux 
+# Install arch packages
+RUN pacman --noconfirm --needed -Syu bash pacman-contrib \
+	bc bin86 binutils bzip2 cdrkit core/which diffutils \
+	fastjar findutils flex gawk gcc gettext git intltool \
+	libusb libxslt make ncurses openssl patch perl-extutils-makemaker \
+	pkgconf python3 rsync sharutils time unzip util-linux wget zlib \
+	quilt curl vim \
+	&& paccache -rfk0
+
+# Setup user
+RUN groupadd $UNAME -g $GID \
+	&& useradd -m -u $UID -g $GID -s /bin/bash $UNAME
 	
-USER tux
-WORKDIR /home/tux/
-VOLUME ["/home/tux/"]
+USER $UNAME
+WORKDIR /opt
+VOLUME ["/opt/"]
 
 ENTRYPOINT /bin/bash
 

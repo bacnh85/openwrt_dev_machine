@@ -1,43 +1,44 @@
-# Purpose
 
-OpenWrt Build Environment for MacOs. 
+As there are [many reasons to use OpenWrt](https://openwrt.org/reasons_to_use_openwrt), I need to build OpenWrt iamge for my router at home as a part of [my HomeLab project](https://bacnh.com/tag/homelab/).
 
-Features:  
-- Mount .ssh local folder to the docker .ssh, so you can access to your own git repos  
-- Config nfsmount. NFS mount is the alternative to overcome `osxfs` performance  
-- Build environment: Ubuntu 14.04 LTS
+I prefer [Archlinux](https://wiki.archlinux.org/index.php/Arch_Linux) as a base container image for OpenWrt build:
+>Arch Linux is an independently developed, x86-64 general-purpose GNU/Linux distribution that strives to provide the latest stable versions of most software by following a rolling-release model. The default installation is a minimal base system, configured by the user to only add what is purposely required.
 
-# Install
+This Archlinux container feature:
+- Share SSH key with the host
+- Share same UID, GID with the host for file editing
+- Build environment: Archlinux latest
 
-## Case-sensitive partition setup
+## Usage
 
-Case-sensitive file system is required to build OpenWrt, thus it can be created under `Disk Utility`.
+Clone this repo:
 
-In latest Macos Mojave with APS Volume (APFFS), you can just add new APFS (Case-sensitive) volume, so both can share the same SSD volume. 
-
-## Setup NFS server
-
-Default NFS export folder is `/Users`, pls change to other in line# 53 if your docker folder is not under `/Users`
-
-```
-$ sh setup_native_nfs_docker_osx.sh
+```bash
+git clone https://github.com/ngohaibac/openwrt-docker-machine.git
+cd openwrt-docker-machine
 ```
 
-## Config 
+Change UID, GID in Dockerfile to match your user information. You can find UID, GID from your current Linux box with `id` which are 1000, 1000, respectively in my ClearLinux box. By doing this, there is no read/write permission when compiling.
 
-Build image and start the build environment:
-
-```
-$ docker-compose build
-$ sh start.sh
+```bash
+$ id
+uid=1000(bacnh) gid=1000(bacnh) groups=1000(bacnh),10(wheel),202(docker)
 ```
 
-## Build your openwrt
+Start the bash inside the container to build OpenWrt image:
 
-Under the docker console, pls follow with the [main upstream build usage
-](https://openwrt.org/docs/guide-developer/build-system/use-buildsystem).
+```bash
+sh start.sh 
+Creating openwrt-dev-machine ... done
+[bacnh@59b1c14c9dfb opt]$ 
+```
 
-# Credit
+Then, follow the [OpenWrt guidance](https://github.com/openwrt/openwrt) to get source and compile your image.
 
-1. Setup [NFS Native script](https://github.com/pascalandy/Docker-For-Mac-with-Native-NFS) from @pascalandy
+```
+$ https://github.com/openwrt/openwrt
+```
 
+## Contribute
+
+Welcome anyone to raise PR to my github repo: https://github.com/ngohaibac/openwrt-docker-machine

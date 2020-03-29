@@ -1,17 +1,10 @@
 version: '2'
 services:
   openwrt_dev_machine:
-    build: .
-    image: ngohaibac/openwrt-ubuntu14.04-dev
-    container_name: openwrt-ubuntu14.04-dev
+    image: ngohaibac/openwrt_dev_machine
+    container_name: openwrt-dev-machine
     volumes:
-      - "nfsmount:/home/tux/"
+      - "./:/opt/"
       - ~/.ssh:/home/tux/.ssh
     tty: true
-volumes:
-  nfsmount:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
-      device: ":${PWD}"
+    network_mode: bridge
