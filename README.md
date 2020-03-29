@@ -39,6 +39,23 @@ Then, follow the [OpenWrt guidance](https://github.com/openwrt/openwrt) to get s
 $ https://github.com/openwrt/openwrt
 ```
 
+## Docker-compose usage
+
+docker-compose.yml is provided inside the repo. You can customize to fit your need of bind mount.
+
+```
+version: '2'
+services:
+  openwrt_dev_machine:
+    image: ngohaibac/openwrt_dev_machine
+    container_name: openwrt-dev-machine
+    volumes:
+      - "./:/opt/"
+      - ~/.ssh:/home/tux/.ssh
+    tty: true
+    network_mode: bridge
+```
+
 ## Contribute
 
 Welcome anyone to raise PR to my github repo: https://github.com/ngohaibac/openwrt-docker-machine
