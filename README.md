@@ -13,14 +13,14 @@ This Archlinux container feature:
 
 Clone this repo:
 
-```bash
+```
 git clone https://github.com/ngohaibac/openwrt-docker-machine.git
 cd openwrt-docker-machine
 ```
 
 Change UID, GID in Dockerfile to match your user information. You can find UID, GID from your current Linux box with `id` which are 1000, 1000, respectively in my ClearLinux box. By doing this, there is no read/write permission when compiling.
 
-```bash
+```
 $ id
 uid=1000(bacnh) gid=1000(bacnh) groups=1000(bacnh),10(wheel),202(docker)
 ```
@@ -36,8 +36,12 @@ Creating openwrt-dev-machine ... done
 Then, follow the [OpenWrt guidance](https://github.com/openwrt/openwrt) to get source and compile your image.
 
 ```
-$ https://github.com/openwrt/openwrt
+$ git clone https://github.com/openwrt/openwrt
 ```
+
+Together with [VSCode + Remote-SSH plugin](https://bacnh.com/how-to-develop-using-vscode-with-your-remote-server-over-ssh/), I am able to build OpenWrt image in my server remotely. 
+
+![VScode and Remote_SSH plugin](img/vscode_remote_ssh.png)
 
 ## Docker-compose usage
 
