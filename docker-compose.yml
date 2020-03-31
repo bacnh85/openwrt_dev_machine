@@ -5,6 +5,6 @@ services:
     container_name: openwrt-dev-machine
     volumes:
       - "./:/opt/"
-      - ~/.ssh:/home/tux/.ssh
+      - ~/.ssh:/home/bacnh/.ssh
     tty: true
     network_mode: bridge

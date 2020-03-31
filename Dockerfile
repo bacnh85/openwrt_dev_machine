@@ -9,7 +9,7 @@ RUN pacman --noconfirm --needed -Syu bash pacman-contrib \
 	fastjar findutils flex gawk gcc gettext git intltool \
 	libusb libxslt make ncurses openssl patch perl-extutils-makemaker \
 	pkgconf python3 rsync sharutils time unzip util-linux wget zlib \
-	quilt curl vim \
+	quilt curl vim openssh \
 	&& paccache -rfk0
 
 # Setup user
