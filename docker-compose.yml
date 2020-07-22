@@ -1,7 +1,7 @@
 version: '2'
 services:
   openwrt_dev_machine:
-    image: ngohaibac/openwrt_dev_machine
+    image: bacnh85/openwrt_dev_machine
     container_name: openwrt-dev-machine
     volumes:
       - "./:/opt/"
